@@ -14,8 +14,8 @@ function(ggml_add_cpu_backend_variant_impl tag_name)
         ggml-cpu/ggml-cpu-aarch64.h
         ggml-cpu/ggml-cpu-hbm.cpp
         ggml-cpu/ggml-cpu-hbm.h
-        ggml-cpu/ggml-cpu-quants.c
-        ggml-cpu/ggml-cpu-quants.h
+        #ggml-cpu/ggml-cpu-quants.c
+        #ggml-cpu/ggml-cpu-quants.h
         ggml-cpu/ggml-cpu-traits.cpp
         ggml-cpu/ggml-cpu-traits.h
         ggml-cpu/amx/amx.cpp
@@ -123,11 +123,11 @@ function(ggml_add_cpu_backend_variant_impl tag_name)
                     set(CMAKE_REQUIRED_FLAGS ${CMAKE_REQUIRED_FLAGS_SAVE})
                 endfunction()
 
-                check_arm_feature(dotprod "#include <arm_neon.h>\nint main() { int8x16_t _a, _b; volatile int32x4_t _s = vdotq_s32(_s, _a, _b); return 0; }")
-                check_arm_feature(i8mm    "#include <arm_neon.h>\nint main() { int8x16_t _a, _b; volatile int32x4_t _s = vmmlaq_s32(_s, _a, _b); return 0; }")
-                check_arm_feature(sve     "#include <arm_sve.h>\nint main()  { svfloat32_t _a, _b; volatile svfloat32_t _c = svadd_f32_z(svptrue_b8(), _a, _b); return 0; }")
+                #check_arm_feature(dotprod "#include <arm_neon.h>\nint main() { int8x16_t _a, _b; volatile int32x4_t _s = vdotq_s32(_s, _a, _b); return 0; }")
+                #check_arm_feature(i8mm    "#include <arm_neon.h>\nint main() { int8x16_t _a, _b; volatile int32x4_t _s = vmmlaq_s32(_s, _a, _b); return 0; }")
+                #check_arm_feature(sve     "#include <arm_sve.h>\nint main()  { svfloat32_t _a, _b; volatile svfloat32_t _c = svadd_f32_z(svptrue_b8(), _a, _b); return 0; }")
 
-                list(APPEND ARCH_FLAGS "${ARM_MCPU_FLAG}${ARM_MCPU_FLAG_FIX}")
+                #list(APPEND ARCH_FLAGS "${ARM_MCPU_FLAG}${ARM_MCPU_FLAG_FIX}")
             else()
                 if (GGML_CPU_ARM_ARCH)
                     list(APPEND ARCH_FLAGS -march=${GGML_CPU_ARM_ARCH})
